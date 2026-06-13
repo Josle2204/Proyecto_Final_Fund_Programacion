@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-
-namespace Streaming
+﻿namespace Streaming
 {
     internal class Program
     {
@@ -23,7 +16,7 @@ namespace Streaming
                     case 1:
                         break;
                     case 2:
-                        break; 
+                        break;
                     case 3:
                         break;
                     case 4:
@@ -49,7 +42,7 @@ namespace Streaming
             Console.WriteLine("6) Salir\n");
 
             Console.Write("Ingrese una opción: ");
-            int opcion = int.Parse(Console.ReadLine());
+            int opcion = int.Parse(Console.ReadLine()!);
 
             return opcion;
         }
@@ -58,7 +51,7 @@ namespace Streaming
         {
             using (StreamWriter escritor = new StreamWriter("prueba.txt"))
             {
-                escritor.WriteLine("HOLA PANCHITO CHUPA");  
+                escritor.WriteLine("HOLA PANCHITO CHUPA");
             }
         }
     }
