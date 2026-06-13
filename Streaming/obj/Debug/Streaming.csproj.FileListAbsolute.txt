@@ -1,0 +1,7 @@
+C:\Users\User\Desktop\UPN\CICLO 3\Fundamentos de Programacion\Proyecto_Final_Fund_Programacion\Streaming\bin\Debug\Streaming.exe.config
+C:\Users\User\Desktop\UPN\CICLO 3\Fundamentos de Programacion\Proyecto_Final_Fund_Programacion\Streaming\bin\Debug\Streaming.exe
+C:\Users\User\Desktop\UPN\CICLO 3\Fundamentos de Programacion\Proyecto_Final_Fund_Programacion\Streaming\bin\Debug\Streaming.pdb
+C:\Users\User\Desktop\UPN\CICLO 3\Fundamentos de Programacion\Proyecto_Final_Fund_Programacion\Streaming\obj\Debug\Streaming.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\UPN\CICLO 3\Fundamentos de Programacion\Proyecto_Final_Fund_Programacion\Streaming\obj\Debug\Streaming.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\UPN\CICLO 3\Fundamentos de Programacion\Proyecto_Final_Fund_Programacion\Streaming\obj\Debug\Streaming.exe
+C:\Users\User\Desktop\UPN\CICLO 3\Fundamentos de Programacion\Proyecto_Final_Fund_Programacion\Streaming\obj\Debug\Streaming.pdb
