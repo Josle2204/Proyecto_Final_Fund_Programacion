@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iPDalBe4TTI=",
+  "dgSpecHash": "fVX0GkMQcR0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\frank\\OneDrive - Universidad Privada del Norte\\phyton\\FUNDAMENTOS_EXAMEN_FINAL\\Proyecto_Final_Fund_Programacion\\Streaming\\Streaming.csproj",
+  "projectFilePath": "C:\\Users\\frank\\Proyecto_Final_Fund_Programacion\\Streaming\\Streaming.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\frank\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.26\\microsoft.netcore.app.ref.8.0.26.nupkg.sha512",
     "C:\\Users\\frank\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.26\\microsoft.windowsdesktop.app.ref.8.0.26.nupkg.sha512",
