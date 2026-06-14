@@ -20,6 +20,7 @@
                     case 3:
                         break;
                     case 4:
+                        Buscar_suscripcion();
                         break;
                     case 5:
                         guardar_cargar();
@@ -53,6 +54,27 @@
             {
                 escritor.WriteLine("HOLA PANCHITO CHUPA");
             }
+        }
+
+        static void Buscar_suscripcion()
+        {
+                    
+        
+            Console.Clear();
+            Console.WriteLine("=== BUSCAR SUSCRIPCION ===");
+            Console.Write("Ingrese el nombre de la plataforma a buscar (ejem: crunchyroll): ");
+            
+            // por lo que tengo ententido el ! se usa para asegurar al programa que no sera un valor nulo 
+            string busqueda = Console.ReadLine()!;
+            
+            Console.WriteLine($"Buscando '{busqueda}' en el sistema...");
+            
+            // Espacio listo para conectar la base de datos o el archivo de texto en tu examen
+            Console.WriteLine("Funcion conectada con exito. Presione cualquier tecla para volver al menu.");
+            Console.ReadKey();
+            Console.Clear();
+        
+
         }
     }
 }
