@@ -19,6 +19,10 @@
                         Console.Clear();
                         break;
                     case 2:
+                        Console.Clear();
+                        buscar_cliente();
+                        Console_ReadKey();
+                        Console.Clear();
                         break;
                     case 3:
                         break;
@@ -87,6 +91,36 @@
 
                 return matriz_datos;
             }
+        }
+       
+        static void buscar_cliente()
+        {
+             string[,] matriz = cargar_archivo();
+
+             Console.Write("Introduce el correo del cliente a buscar: ");
+             string buscar = Console.ReadLine();
+             bool encontro = false;
+
+             Console.WriteLine("\nResultados de la busqueda:");
+             Console.WriteLine("Telefono | Precio | Vencimiento | Cuenta | Perfil | Plataforma");
+             Console.WriteLine("-----------------------------------------------------------------------");
+
+             for (int i = 0; i < matriz.GetLength(0); i++)
+             {
+       
+                 if (matriz[i, 3] != null && matriz[i, 3].ToLower().Contains(buscar.ToLower()))
+                 {
+                     Console.WriteLine(matriz[i, 0] + " | " + matriz[i, 1] + " | " + matriz[i, 2] + " | " + matriz[i, 3] + " | " + matriz[i, 4] + " | " + matriz[i, 5]);
+                     encontro = true;
+                 }
+             }
+
+             if (encontro == false)
+             {
+                 Console.WriteLine("\nNo se encontro ninguna cuenta con ese nombre.");
+             }
+
+             Console.WriteLine("\nPresiona cualquier tecla para salir...");
         }
 
         static void mostrar_clientes()
