@@ -5,6 +5,8 @@ namespace Streaming
 {
     internal class Program
     {
+        private static bool hayResultados;
+
         static void Main(string[] args)
         {
             int opcion;
@@ -117,7 +119,7 @@ namespace Streaming
             string[,] matriz_datos = cargar_archivo ();
 
             Console.WriteLine("\n===== Cuentas vencidas =====");
-            bool hayVencidas = false;
+            bool hayResultados = false;
 
             DateTime fechaActual = DateTime.Today;
             for (int i = 0; i < matriz_datos.GetLength(0); i++)
@@ -133,24 +135,57 @@ namespace Streaming
                 if (!fechaValida)
                    continue;
 
-                if (fechaVencimiento < fechaActual)
+                int diasRestantes = (fechaVencimiento.Date - fechaActual).Days;
+
+                if (diasRestantes < 0)
                 {
-                    Console.WriteLine("--------------------------------------------");
+                    Console.WriteLine("-----------------------------------------------");
+                    Console.WriteLine("CUENTA VENCIDA");
+                    Console.WriteLine("TELÉFONO: " + matriz_datos[i, 0]);
+                    Console.WriteLine("CUENTA: " + matriz_datos[i, 3]);
+                    Console.WriteLine("PERFIL: " + matriz_datos[i, 4]);
+                    Console.WriteLine("PLATAFORMA: " + matriz_datos[i, 5]);
+                    Console.WriteLine("Vencimiento: " + matriz_datos[i,2]);
+                    Console.WriteLine("DÍAS VENCIDOS: " + Math.Abs(diasRestantes));
+                    Console.WriteLine("-----------------------------------------------");
+
+                    hayResultados = true;
+                }
+                else if (diasRestantes == 0)
+                {
+                    Console.WriteLine("----------------------------------------------");
+                    Console.WriteLine("CUENTA VENCE HOY");
                     Console.WriteLine("TELÉFONO: " + matriz_datos[i, 0]);
                     Console.WriteLine("CUENTA: " + matriz_datos[i, 3]);
                     Console.WriteLine("PERFIL: " + matriz_datos[i, 4]);
                     Console.WriteLine("PLATAFORMA: " + matriz_datos[i, 5]);
                     Console.WriteLine("VENCIMIENTO: " + matriz_datos[i, 2]);
-                    Console.WriteLine("-------------------------------------------");
+                    Console.WriteLine("----------------------------------------------");
 
-                    hayVencidas = true;
+                    hayResultados = true;
+                }
+                else if(diasRestantes <= 3)
+                {
+                    Console.WriteLine("-----------------------------------------------");
+                    Console.WriteLine("CUENTA POR VENCER");
+                    Console.WriteLine("TELÉFONO: " + matriz_datos[i, 0]);
+                    Console.WriteLine("CUENTA: " + matriz_datos[i, 3]);
+                    Console.WriteLine("PERFIL: " + matriz_datos[i, 4]);
+                    Console.WriteLine("PLATAFORMA: " + matriz_datos[i, 5]);
+                    Console.WriteLine("VENCIMIENTO: " + matriz_datos[i, 2]);
+                    Console.WriteLine("DÍAS RESTANTES: " + diasRestantes);
+                    Console.WriteLine("-----------------------------------------------");
+
+                    hayResultados = true;
                 }
             }
 
-            if (!hayVencidas)
+            if (!hayResultados)
             {
-                 Console.WriteLine("No hay cuentas vencidas.");
+                Console.WriteLine("No hay cuentas vencidas ni cuentas por vencer en los próximos 3 días.");
             }
+
+            Console.Write("\nPresione una tecla para continuar...");
         }
         
     }
