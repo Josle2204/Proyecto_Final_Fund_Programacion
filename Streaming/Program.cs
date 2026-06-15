@@ -1,12 +1,7 @@
-﻿using System.Data;
-using System.Reflection.Metadata;
-
-namespace Streaming
+﻿namespace Streaming
 {
     internal class Program
     {
-        private static bool hayResultados;
-
         static void Main(string[] args)
         {
             int opcion;
