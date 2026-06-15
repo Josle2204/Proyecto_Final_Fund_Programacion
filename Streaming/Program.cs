@@ -25,8 +25,13 @@
                     case 4:
                         break;
                     case 5:
+                        Console.Clear();
+                        
                         break;
                     case 6:
+                        Console.Clear();
+                        ganancia_total();
+                        console.Clear();
                         break;
                     case 7:
                         break;
@@ -103,6 +108,38 @@
             }
 
             Console.Write("\nPresione una tecla para continuar...");
+        }
+        static void ganancia_total()
+        {
+          Console.Clear();
+          string[,] matriz_datos = cargar_archivo();
+          decimal total = 0;
+          int registros_sumados = 0;
+
+          //este for recorreria todas las filas de la matriz
+          for(int i = 0; i < matriz_datos.GetLength(0); i++);
+            {
+                //esto es para que vea si existe algun nulo en el csv y el && es por si en vez de vacio ponen ""
+               if(matriz_datos[i,1] != null && matriz_datos[i,1] != "")
+                {
+                    //esto es para convertir todo el texto a numero para acto siguiente sumarlo
+                  if(decimal.TryParse(matriz_datos[i,1],out decimal PRECIO))
+                    {
+                        total += PRECIO;
+                    }
+                }
+            }
+            Console.WriteLine("========================================");
+            Console.WriteLine("       REPORTE DE GANANCIA TOTAL        ");
+            Console.WriteLine("========================================");
+            Console.WriteLine($"     LA GANANCIA TOTAL ES: {total:C}   ");
+            Console.WriteLine("========================================");
+            Console.Write("\nPresione una tecla para regresar al menú...");
+            Console.ReadKey();
+
+
+            
+
         }
     }
 }
