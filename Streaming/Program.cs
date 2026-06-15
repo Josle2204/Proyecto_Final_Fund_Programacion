@@ -1,4 +1,7 @@
-﻿namespace Streaming
+﻿using System.Data;
+using System.Reflection.Metadata;
+
+namespace Streaming
 {
     internal class Program
     {
@@ -25,6 +28,10 @@
                     case 4:
                         break;
                     case 5:
+                        Console.Clear();
+                        cuentas_vencidas();
+                        Console.ReadKey();
+                        Console.Clear();
                         break;
                     case 6:
                         break;
@@ -104,5 +111,47 @@
 
             Console.Write("\nPresione una tecla para continuar...");
         }
+
+        static void cuentas_vencidas()
+        {
+            string[,] matriz_datos = cargar_archivo ();
+
+            Console.WriteLine("\n===== Cuentas vencidas =====");
+            bool hayVencidas = false;
+
+            DateTime fechaActual = DateTime.Today;
+            for (int i = 0; i < matriz_datos.GetLength(0); i++)
+            {
+                if (string.IsNullOrEmpty(matriz_datos[i, 2]))
+                continue;
+
+                bool fechaValida = DateTime.TryParse(
+                  matriz_datos[i, 2],
+                  out DateTime fechaVencimiento
+                );
+
+                if (!fechaValida)
+                   continue;
+
+                if (fechaVencimiento < fechaActual)
+                {
+                    Console.WriteLine("--------------------------------------------");
+                    Console.WriteLine("TELÉFONO: " + matriz_datos[i, 0]);
+                    Console.WriteLine("CUENTA: " + matriz_datos[i, 3]);
+                    Console.WriteLine("PERFIL: " + matriz_datos[i, 4]);
+                    Console.WriteLine("PLATAFORMA: " + matriz_datos[i, 5]);
+                    Console.WriteLine("VENCIMIENTO: " + matriz_datos[i, 2]);
+                    Console.WriteLine("-------------------------------------------");
+
+                    hayVencidas = true;
+                }
+            }
+
+            if (!hayVencidas)
+            {
+                 Console.WriteLine("No hay cuentas vencidas.");
+            }
+        }
+        
     }
 }
