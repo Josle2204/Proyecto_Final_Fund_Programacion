@@ -26,7 +26,7 @@
                         break;
                     case 5:
                         Console.Clear();
-                        cuentas_vencidas();
+                        alertas_vencimiento();
                         Console.ReadKey();
                         Console.Clear();
                         break;
@@ -49,7 +49,7 @@
             Console.WriteLine("2) Buscar cliente");
             Console.WriteLine("3) Registrar cuenta");
             Console.WriteLine("4) Eliminar cuenta");
-            Console.WriteLine("5) Cuentas vencidas");
+            Console.WriteLine("5) Alertas de vencimiento");
             Console.WriteLine("6) Ganancia total");
             Console.WriteLine("7) Salir\n");
 
@@ -98,7 +98,7 @@
             string[,] matriz_datos = cargar_archivo();
 
             Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------");
-            Console.WriteLine($"{"  TELÉFONO",-13} {"PRECIO",-8} {"VENCIMIENTO",-30} {"CUENTA",-30} {"PERFIL",-20} {"PLATAFORMA",-12}");
+            Console.WriteLine($"{"TELÉFONO",-15} {"PRECIO",-8} {"VENCIMIENTO",-12} {"CUENTA",-65} {"PERFIL",-25} {"PLATAFORMA",-18} {"ESTADO",-12}");
             Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------");
 
             for (int i = 0; i < matriz_datos.GetLength(0); i++)
@@ -109,79 +109,119 @@
             Console.Write("\nPresione una tecla para continuar...");
         }
 
-        static void cuentas_vencidas()
+        static void alertas_vencimiento()
         {
-            string[,] matriz_datos = cargar_archivo ();
-
-            Console.WriteLine("\n===== Cuentas vencidas =====");
-            bool hayResultados = false;
-
+            string[,] matriz_datos = cargar_archivo();
             DateTime fechaActual = DateTime.Today;
+
+            bool hayVencidas = false;
+            bool hayVenceHoy = false;
+            bool hayPorVencer = false;
+
+            Console.WriteLine("\n================ ALERTAS DE VENCIMIENTO ================\n");
+
+            // =========================
+            // 1. CUENTAS VENCIDAS
+            // =========================
+
+            Console.WriteLine("=============== CUENTAS VENCIDAS ===============");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine($"{"TELÉFONO",-15} {"PRECIO",-8} {"VENCIMIENTO",-12} {"CUENTA",-65} {"PERFIL",-25} {"PLATAFORMA",-18} {"ESTADO",-12}");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------------");
+
             for (int i = 0; i < matriz_datos.GetLength(0); i++)
             {
-                if (string.IsNullOrEmpty(matriz_datos[i, 2]))
-                continue;
+                if (string.IsNullOrWhiteSpace(matriz_datos[i, 2]))
+                    continue;
 
-                bool fechaValida = DateTime.TryParse(
-                  matriz_datos[i, 2],
-                  out DateTime fechaVencimiento
-                );
+                bool fechaValida = DateTime.TryParse(matriz_datos[i, 2], out DateTime fechaVencimiento);
 
                 if (!fechaValida)
-                   continue;
-
+                    continue;
+                
                 int diasRestantes = (fechaVencimiento.Date - fechaActual).Days;
 
                 if (diasRestantes < 0)
                 {
-                    Console.WriteLine("-----------------------------------------------");
-                    Console.WriteLine("CUENTA VENCIDA");
-                    Console.WriteLine("TELÉFONO: " + matriz_datos[i, 0]);
-                    Console.WriteLine("CUENTA: " + matriz_datos[i, 3]);
-                    Console.WriteLine("PERFIL: " + matriz_datos[i, 4]);
-                    Console.WriteLine("PLATAFORMA: " + matriz_datos[i, 5]);
-                    Console.WriteLine("Vencimiento: " + matriz_datos[i,2]);
-                    Console.WriteLine("DÍAS VENCIDOS: " + Math.Abs(diasRestantes));
-                    Console.WriteLine("-----------------------------------------------");
-
-                    hayResultados = true;
-                }
-                else if (diasRestantes == 0)
-                {
-                    Console.WriteLine("----------------------------------------------");
-                    Console.WriteLine("CUENTA VENCE HOY");
-                    Console.WriteLine("TELÉFONO: " + matriz_datos[i, 0]);
-                    Console.WriteLine("CUENTA: " + matriz_datos[i, 3]);
-                    Console.WriteLine("PERFIL: " + matriz_datos[i, 4]);
-                    Console.WriteLine("PLATAFORMA: " + matriz_datos[i, 5]);
-                    Console.WriteLine("VENCIMIENTO: " + matriz_datos[i, 2]);
-                    Console.WriteLine("----------------------------------------------");
-
-                    hayResultados = true;
-                }
-                else if(diasRestantes <= 3)
-                {
-                    Console.WriteLine("-----------------------------------------------");
-                    Console.WriteLine("CUENTA POR VENCER");
-                    Console.WriteLine("TELÉFONO: " + matriz_datos[i, 0]);
-                    Console.WriteLine("CUENTA: " + matriz_datos[i, 3]);
-                    Console.WriteLine("PERFIL: " + matriz_datos[i, 4]);
-                    Console.WriteLine("PLATAFORMA: " + matriz_datos[i, 5]);
-                    Console.WriteLine("VENCIMIENTO: " + matriz_datos[i, 2]);
-                    Console.WriteLine("DÍAS RESTANTES: " + diasRestantes);
-                    Console.WriteLine("-----------------------------------------------");
-
-                    hayResultados = true;
+                    Console.WriteLine($"{matriz_datos[i, 0],-15} {matriz_datos[i, 1],-8} {matriz_datos[i, 2],-12} {matriz_datos[i, 3],-55} {matriz_datos[i, 4],-30} {matriz_datos[i, 5],-18} {"VENCIDA",-12}");
+                    hayVencidas = true;
                 }
             }
 
-            if (!hayResultados)
+            if (!hayVencidas)
             {
-                Console.WriteLine("No hay cuentas vencidas ni cuentas por vencer en los próximos 3 días.");
+                Console.WriteLine("No hay cuentas vencidas.");
+            }
+            Console.WriteLine();
+
+            // =========================
+            // 2. CUENTAS QUE VENCEN HOY
+            // =========================
+
+            Console.WriteLine("=============== CUENTAS QUE VENCEN HOY ===============");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine($"{"TELÉFONO",-15} {"PRECIO",-8} {"VENCIMIENTO",-12} {"CUENTA",-65} {"PERFIL",-25} {"PLATAFORMA",-18} {"ESTADO",-12}");
+            Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------");
+
+            for (int i = 0; i < matriz_datos.GetLength(0); i++)
+            {
+                if (string.IsNullOrWhiteSpace(matriz_datos[i, 2]))
+                    continue;
+
+                bool fechaValida = DateTime.TryParse(matriz_datos[i, 2], out DateTime fechaVencimiento);
+
+                if (!fechaValida)
+                    continue;
+
+                int diasRestantes = (fechaVencimiento.Date - fechaActual).Days;
+
+                if (diasRestantes == 0)
+                {
+                    Console.WriteLine($"{matriz_datos[i, 0],-15} {matriz_datos[i, 1],-8} {matriz_datos[i, 2],-12} {matriz_datos[i, 3],-55} {matriz_datos[i, 4],-30} {matriz_datos[i, 5],-18} {"VENCE HOY",-12}");
+                    hayVenceHoy = true;
+                }
+            }
+
+            if (!hayVenceHoy)
+            {
+                Console.WriteLine("No hay cuentas que vencen hoy.");
+            }
+            Console.WriteLine();
+
+            // =========================
+            // 3. CUENTAS POR VENCER
+            // =========================
+
+            Console.WriteLine("=============== CUENTAS POR VENCER (1 A 3 DÍAS) ===============");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine($"{"TELÉFONO",-15} {"PRECIO",-8} {"VENCIMIENTO",-12} {"CUENTA",-70} {"PERFIL",-25} {"PLATAFORMA",-18} {"ESTADO",-12}");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+            for (int i = 0; i < matriz_datos.GetLength(0); i++)
+            {
+                if (string.IsNullOrWhiteSpace(matriz_datos[i, 2]))
+                    continue;
+                
+                bool fechaValida = DateTime.TryParse(matriz_datos[i, 2], out DateTime fechaVencimiento);
+
+                if (!fechaValida)
+                    continue;
+
+                int diasRestantes = (fechaVencimiento.Date - fechaActual).Days;
+
+                if (diasRestantes > 0 && diasRestantes <= 3)
+                {
+                    Console.WriteLine($"{matriz_datos[i, 0],-15} {matriz_datos[i, 1],-8} {matriz_datos[i, 2],-12} {matriz_datos[i, 3],-55} {matriz_datos[i, 4],-30} {matriz_datos[i, 5],-18} {diasRestantes,-12}");
+                    hayPorVencer = true;
+                }
+            }
+
+            if (!hayPorVencer)
+            {
+                Console.WriteLine("No hay cuentas por vencer en los próximos 3 días.");
             }
 
             Console.Write("\nPresione una tecla para continuar...");
         }
-        
     }
 }
