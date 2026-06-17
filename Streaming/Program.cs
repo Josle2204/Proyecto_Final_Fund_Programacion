@@ -1,4 +1,6 @@
-﻿namespace Streaming
+﻿using System.Text.RegularExpressions;
+
+namespace Streaming
 {
     internal class Program
     {
@@ -13,28 +15,28 @@
                 switch (opcion)
                 {
                     case 1:
+                        Console.Clear();
                         mostrar_clientes();
-                        Console.ReadKey();
                         Console.Clear();
                         break;
                     case 2:
                         Console.Clear();
                         buscar_cliente();
-                        Console.ReadKey();
                         Console.Clear();
                         break;
                     case 3:
                         Console.Clear();
                         registrar_cuenta();
-                        Console.ReadKey();
                         Console.Clear();
                         break;
                     case 4:
+                        Console.Clear();
+                        eliminar_cuenta();
+                        Console.Clear();
                         break;
                     case 5:
                         Console.Clear();
                         alertas_vencimiento();
-                        Console.ReadKey();
                         Console.Clear();
                         break;
                     case 6:
@@ -59,7 +61,7 @@
             Console.WriteLine("2) Buscar cliente");
             Console.WriteLine("3) Registrar cuenta");
             Console.WriteLine("4) Eliminar cuenta");
-            Console.WriteLine("5) Cuentas vencidas");
+            Console.WriteLine("5) Alerta de vencimientos");
             Console.WriteLine("6) Ganancia total");
             Console.WriteLine("7) Salir\n");
 
@@ -119,6 +121,7 @@
             }
 
             Console.Write("\nPresione una tecla para continuar...");
+            Console.ReadKey();
         }
 
         static void buscar_cliente()
@@ -129,7 +132,7 @@
             string buscar = Console.ReadLine();
             bool encontro = false;
 
-            Console.WriteLine("\nResultados de la busqueda:");
+            Console.WriteLine("\nResultados de la busqueda:\n");
             Console.WriteLine("Telefono | Precio | Vencimiento | Cuenta | Perfil | Plataforma");
             Console.WriteLine("-----------------------------------------------------------------------");
 
@@ -148,7 +151,7 @@
                 Console.WriteLine("\nNo se encontro ninguna cuenta con ese telefono.");
             }
 
-            Console.WriteLine("\nPresiona cualquier tecla para salir...");
+            Console.Write("\nPresiona cualquier tecla para salir...");
             Console.ReadKey();
             Console.Clear();
         }
@@ -269,6 +272,105 @@
             {
                 escritor.Write($"\n{telefono};{monto};{fecha};{cuenta};{perfil};{plataforma};");
             }
+
+            Console.Write("Presione una tecla para continuar...");
+            Console.ReadKey();
+        }
+
+        static void eliminar_cuenta()
+        {
+            string[,] matriz_datos = cargar_archivo();
+
+            List<string> lista_temporal = new List<string>();
+
+            for (int i = 0; i < matriz_datos.GetLength(0); i++)
+            {
+                lista_temporal.Add($"{matriz_datos[i, 0]};{matriz_datos[i, 1]};{matriz_datos[i, 2]};{matriz_datos[i, 3]};{matriz_datos[i, 4]};{matriz_datos[i, 5]}");
+            }
+
+            Console.WriteLine("=== Eliminar Cuenta ===");
+
+            string telefono;
+
+            do
+            {
+                Console.Write("Ingrese un número telefónico: ");
+                telefono = Console.ReadLine()!;
+
+                if (!Regex.IsMatch(telefono, @"\d"))
+                {
+                    Console.WriteLine("Número inválido. Debe tener 9 dígitos.\n");
+                }
+
+            } while (!Regex.IsMatch(telefono, @"\d"));
+
+            string identificador = "";
+
+            for (int i = 0; i < lista_temporal.Count; i++)
+            {
+                string telefonoRegistro = lista_temporal[i].Split(';')[0];
+
+                if (telefonoRegistro == telefono)
+                {
+                    if (identificador != "")
+                    {
+                        identificador = $"{identificador},{i}";
+                    }
+                    else
+                    {
+                        identificador = $"{i}";
+                    }
+                }
+            }
+
+            string[] identificador_separado;
+
+            if (identificador != "")
+            {
+                Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------");
+                Console.WriteLine($"{"  TELÉFONO",-13} {"PRECIO",-8} {"VENCIMIENTO",-30} {"CUENTA",-30} {"PERFIL",-20} {"PLATAFORMA",-12}");
+                Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------");
+
+                identificador_separado =  identificador.Split(',');
+                for (int i = 0; i < identificador_separado.Length; i++)
+                {
+                    int indice = int.Parse(identificador_separado[i]);
+
+                    Console.WriteLine($"{i+1}) {matriz_datos[indice, 0],-11} S/. {matriz_datos[indice, 1],-8:C} {matriz_datos[indice, 2],-12:dd/MM/yyyy} {matriz_datos[indice, 3],-48} {matriz_datos[indice, 4],-20} {matriz_datos[indice, 5],-12}");
+                }
+
+                Console.Write("\nIngrese la cuenta a borrar (opción): ");
+                int opcion_borrar = int.Parse(Console.ReadLine()!);
+
+                int indiceReal = int.Parse(identificador_separado[opcion_borrar - 1]);
+
+                lista_temporal.RemoveAt(indiceReal);
+
+                using (StreamWriter escritor = new StreamWriter("Streaming.csv"))
+                {
+                    string nuevos_datos = "";
+
+                    for (int i = 0; i < lista_temporal.Count; i++)
+                    {
+                        if (nuevos_datos == "")
+                        {
+                            nuevos_datos = $"{lista_temporal[i]}";
+                        }
+                        else
+                        {
+                            nuevos_datos = $"{nuevos_datos}\n{lista_temporal[i]}";
+                        }
+                    }
+
+                    escritor.Write(nuevos_datos);
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nNo se encontró al cliente.");
+            }
+            Console.Write("\nPresione una tecla para continuar...");
+            Console.ReadKey();
         }
 
         static void alertas_vencimiento()
@@ -380,10 +482,11 @@
 
             if (!hayPorVencer)
             {
-                Console.WriteLine("No hay cuentas por vencer en los próximos 3 días.");
+                Console.WriteLine("\nNo hay cuentas por vencer en los próximos 3 días.");
             }
 
             Console.Write("\nPresione una tecla para continuar...");
+            Console.ReadKey();
         }
 
         static void ganancia_total()
@@ -411,7 +514,7 @@
             Console.WriteLine("========================================");
             Console.WriteLine($"     LA GANANCIA TOTAL ES: {total:C}   ");
             Console.WriteLine("========================================");
-            Console.Write("\nPresione una tecla para regresar al menú...");
+            Console.Write("\nPresione una tecla para continuar...");
             Console.ReadKey();
         }
     }
