@@ -128,8 +128,8 @@ namespace Streaming
         {
             string[,] matriz = cargar_archivo();
 
-            Console.Write("Introduce el numero de telefono a buscar: ");
-            string buscar = Console.ReadLine();
+            //leertexto nos valida con el formato hecho asi el numero que pongas aca no es incoherente
+            string buscar = LeerTexto("Introduce el numero de telefono a buscar: ");
             bool encontro = false;
 
             Console.WriteLine("\nResultados de la busqueda:\n");
@@ -161,8 +161,7 @@ namespace Streaming
             string[,] matriz_datos = cargar_archivo();
 
             Console.WriteLine("=== Agregando cuenta ===\n");
-            Console.Write("Ingrese teléfono: ");
-            string telefono = Console.ReadLine()!;  //
+            string telefono = LeerTexto("Ingrese teléfono: "); 
 
             Console.Write("\nIngrese monto: S/ ");
 
@@ -184,13 +183,7 @@ namespace Streaming
             string monto = opcion_monto.ToString(); //
 
             Console.WriteLine("\nIngrese respetando el formato (dd/MM/yyyy): ");
-            Console.Write("Día: ");
-            string dia = Console.ReadLine()!;
-            Console.Write("Mes: ");
-            string mes = Console.ReadLine()!;
-            Console.Write("Año: ");
-            string año = Console.ReadLine()!;
-            string fecha = $"{dia}/{mes}/{año}";    //
+            string fecha = LeerFecha();
 
             Console.WriteLine("\nIngrese la cuenta:");
             Console.Write("Correo/usuario: ");
@@ -517,5 +510,52 @@ namespace Streaming
             Console.Write("\nPresione una tecla para continuar...");
             Console.ReadKey();
         }
+        // ================= VALIDACIONES =================
+        static string LeerTexto(string mensaje)
+        {
+            string valor;
+
+            do
+            {
+                Console.Write(mensaje);
+                valor = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(valor))
+                {
+                    Console.WriteLine("no puede estar vacio. ");
+                }
+
+            }while(string.IsNullOrWhiteSpace(valor));
+
+            return valor;
+        }
+        static int LeerEntero(string mensaje,int min,int max)
+        {
+            int valor;
+            bool valido;
+
+            do
+            {
+                Console.Write(mensaje);
+                valido=int.TryParse(Console.ReadLine(), out valor);
+
+                if(!valido || valor <min || valor > max)
+                {
+                    Console.WriteLine($"Ingrese un numero valido entre {min} y {max}");
+                    valido = false;
+                }
+            } while(!valido);
+            return valor;
+        }
+
+        static string LeerFecha()
+        {
+            int dia = LeerEntero("dia: ",1,31);
+            int mes = LeerEntero("Mes: ", 1, 12);
+            int año = LeerEntero("Año: ", 2000, 2100);
+
+            return $"{dia}/{mes}/{año}";
+        }
+
     }
 }
