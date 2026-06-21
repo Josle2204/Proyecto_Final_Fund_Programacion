@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace Streaming
 {
@@ -180,17 +180,15 @@ namespace Streaming
 
             } while (!validar_monto);
 
-            string monto = opcion_monto.ToString(); //
+            string monto = opcion_monto.ToString(); 
 
             Console.WriteLine("\nIngrese respetando el formato (dd/MM/yyyy): ");
             string fecha = LeerFecha();
 
             Console.WriteLine("\nIngrese la cuenta:");
-            Console.Write("Correo/usuario: ");
-            string correo_usuario = Console.ReadLine()!;
-            Console.Write("Clave: ");
-            string clave = Console.ReadLine()!;
-            string cuenta = $"{correo_usuario} {clave}";    //
+            string correo_usuario = LeerTexto("Correo/usuario: ");
+            string clave = LeerTexto("Clave: ");
+            string cuenta = $"{correo_usuario} {clave}";    
 
             Console.WriteLine("\nEscoja la plataforma:");
             Console.WriteLine("[1. IPTV]");
@@ -203,7 +201,7 @@ namespace Streaming
 
             int opcion = 0;
             bool validar;
-            string plataforma = ""; //
+            string plataforma = ""; 
 
             do
             {
@@ -236,16 +234,15 @@ namespace Streaming
                     break;
             }
 
-            string perfil = "";  //
-            
+            string perfil = "";
+
             if (opcion != 1)
             {
-                Console.Write("\nPerfil: ");
-                string perfil_1 = Console.ReadLine()!;
-                Console.Write("PIN (Dejar vació si no tiene): ");
-                string perfil_2 = Console.ReadLine();
+                string perfil_1 = LeerTexto("\nPerfil: ");
+                Console.Write("PIN (Dejar vacío si no tiene): ");
+                string perfil_2 = Console.ReadLine()?.Trim() ?? "";
 
-                if (perfil_2 != "")
+                if (!string.IsNullOrEmpty(perfil_2))
                 {
                     perfil = $"{perfil_1} {perfil_2}";
                 }
@@ -254,11 +251,10 @@ namespace Streaming
                     perfil = perfil_1;
                 }
             }
-
-            else if (opcion == 1)
+            else
             {
                 Console.Write("Ingrese 'FULL' o '1 DISPO' (Perfil en caso tenga): ");
-                perfil = Console.ReadLine()!;
+                perfil = Console.ReadLine()?.Trim() ?? "";
             }
 
             using (StreamWriter escritor = new StreamWriter("Streaming.csv", true))
@@ -290,12 +286,12 @@ namespace Streaming
                 Console.Write("Ingrese un número telefónico: ");
                 telefono = Console.ReadLine()!;
 
-                if (!Regex.IsMatch(telefono, @"\d"))
+                if (!Regex.IsMatch(telefono, @"^\d{9}$"))
                 {
                     Console.WriteLine("Número inválido. Debe tener 9 dígitos.\n");
                 }
 
-            } while (!Regex.IsMatch(telefono, @"\d"));
+            } while (!Regex.IsMatch(telefono, @"^\d{9}$"));
 
             string identificador = "";
 
@@ -332,8 +328,11 @@ namespace Streaming
                     Console.WriteLine($"{i+1}) {matriz_datos[indice, 0],-11} S/. {matriz_datos[indice, 1],-8:C} {matriz_datos[indice, 2],-12:dd/MM/yyyy} {matriz_datos[indice, 3],-48} {matriz_datos[indice, 4],-20} {matriz_datos[indice, 5],-12}");
                 }
 
-                Console.Write("\nIngrese la cuenta a borrar (opción): ");
-                int opcion_borrar = int.Parse(Console.ReadLine()!);
+                int opcion_borrar = LeerEntero(
+                    "\nIngrese la cuenta a borrar (opción): ",
+                    1,
+                    identificador_separado.Length
+                );
 
                 int indiceReal = int.Parse(identificador_separado[opcion_borrar - 1]);
 
@@ -518,7 +517,7 @@ namespace Streaming
             do
             {
                 Console.Write(mensaje);
-                valor = Console.ReadLine();
+                valor = Console.ReadLine()?? "";
 
                 if (string.IsNullOrWhiteSpace(valor))
                 {
