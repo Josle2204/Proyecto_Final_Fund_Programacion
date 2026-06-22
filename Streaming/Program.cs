@@ -235,7 +235,7 @@ namespace Streaming
             }
 
             string perfil = "";
-
+            
             if (opcion != 1)
             {
                 string perfil_1 = LeerTexto("\nPerfil: ");
@@ -261,6 +261,8 @@ namespace Streaming
             {
                 escritor.Write($"\n{telefono};{monto};{fecha};{cuenta};{perfil};{plataforma};");
             }
+
+            Console.WriteLine("\n Cuenta registrada con éxito.");
 
             Console.Write("Presione una tecla para continuar...");
             Console.ReadKey();
@@ -361,6 +363,9 @@ namespace Streaming
             {
                 Console.WriteLine("\nNo se encontró al cliente.");
             }
+
+            Console.WriteLine("\n Cuenta eliminada correctamente.");
+
             Console.Write("\nPresione una tecla para continuar...");
             Console.ReadKey();
         }
@@ -374,16 +379,16 @@ namespace Streaming
             bool hayVenceHoy = false;
             bool hayPorVencer = false;
 
-            Console.WriteLine("\n================ ALERTAS DE VENCIMIENTO ================\n");
+            Console.WriteLine("\n========================================================================== ALERTAS DE VENCIMIENTO ====================================================================\n");
 
             // =========================
             // 1. CUENTAS VENCIDAS
             // =========================
 
             Console.WriteLine("=============== CUENTAS VENCIDAS ===============");
-            Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------------");
-            Console.WriteLine($"{"TELÉFONO",-15} {"PRECIO",-8} {"VENCIMIENTO",-12} {"CUENTA",-65} {"PERFIL",-25} {"PLATAFORMA",-18} {"ESTADO",-12}");
-            Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine($"{"TELÉFONO",-15} {"PRECIO",-8} {"VENCIMIENTO",-12} {"CUENTA",-60} {"PERFIL",-20} {"PLATAFORMA",-18} {"ESTADO",-12}");
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
             for (int i = 0; i < matriz_datos.GetLength(0); i++)
             {
@@ -399,7 +404,7 @@ namespace Streaming
 
                 if (diasRestantes < 0)
                 {
-                    Console.WriteLine($"{matriz_datos[i, 0],-15} {matriz_datos[i, 1],-8} {matriz_datos[i, 2],-12} {matriz_datos[i, 3],-55} {matriz_datos[i, 4],-30} {matriz_datos[i, 5],-18} {"VENCIDA",-12}");
+                    Console.WriteLine($"{matriz_datos[i, 0],-15} {matriz_datos[i, 1],-8} {matriz_datos[i, 2],-12} {matriz_datos[i, 3],-60} {matriz_datos[i, 4],-20} {matriz_datos[i, 5],-18} {"VENCIDA",-12}");
                     hayVencidas = true;
                 }
             }
@@ -415,9 +420,9 @@ namespace Streaming
             // =========================
 
             Console.WriteLine("=============== CUENTAS QUE VENCEN HOY ===============");
-            Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------");
-            Console.WriteLine($"{"TELÉFONO",-15} {"PRECIO",-8} {"VENCIMIENTO",-12} {"CUENTA",-65} {"PERFIL",-25} {"PLATAFORMA",-18} {"ESTADO",-12}");
-            Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine($"{"TELÉFONO",-15} {"PRECIO",-8} {"VENCIMIENTO",-12} {"CUENTA",-60} {"PERFIL",-20} {"PLATAFORMA",-18} {"ESTADO",-12}");
+            Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
             for (int i = 0; i < matriz_datos.GetLength(0); i++)
             {
@@ -433,7 +438,7 @@ namespace Streaming
 
                 if (diasRestantes == 0)
                 {
-                    Console.WriteLine($"{matriz_datos[i, 0],-15} {matriz_datos[i, 1],-8} {matriz_datos[i, 2],-12} {matriz_datos[i, 3],-55} {matriz_datos[i, 4],-30} {matriz_datos[i, 5],-18} {"VENCE HOY",-12}");
+                    Console.WriteLine($"{matriz_datos[i, 0],-15} {matriz_datos[i, 1],-8} {matriz_datos[i, 2],-12} {matriz_datos[i, 3],-60} {matriz_datos[i, 4],-20} {matriz_datos[i, 5],-18} {"VENCE HOY",-12}");
                     hayVenceHoy = true;
                 }
             }
@@ -449,9 +454,9 @@ namespace Streaming
             // =========================
 
             Console.WriteLine("=============== CUENTAS POR VENCER (1 A 3 DÍAS) ===============");
-            Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------------------------------");
-            Console.WriteLine($"{"TELÉFONO",-15} {"PRECIO",-8} {"VENCIMIENTO",-12} {"CUENTA",-70} {"PERFIL",-25} {"PLATAFORMA",-18} {"ESTADO",-12}");
-            Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine($"{"TELÉFONO",-15} {"PRECIO",-8} {"VENCIMIENTO",-12} {"CUENTA",-60} {"PERFIL",-20} {"PLATAFORMA",-18} {"ESTADO",-12}");
+            Console.WriteLine("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
             for (int i = 0; i < matriz_datos.GetLength(0); i++)
             {
@@ -467,7 +472,7 @@ namespace Streaming
 
                 if (diasRestantes > 0 && diasRestantes <= 3)
                 {
-                    Console.WriteLine($"{matriz_datos[i, 0],-15} {matriz_datos[i, 1],-8} {matriz_datos[i, 2],-12} {matriz_datos[i, 3],-55} {matriz_datos[i, 4],-30} {matriz_datos[i, 5],-18} {diasRestantes,-12}");
+                    Console.WriteLine($"{matriz_datos[i, 0],-15} {matriz_datos[i, 1],-8} {matriz_datos[i, 2],-12} {matriz_datos[i, 3],-60} {matriz_datos[i, 4],-20} {matriz_datos[i, 5],-18} {diasRestantes,-12}");
                     hayPorVencer = true;
                 }
             }

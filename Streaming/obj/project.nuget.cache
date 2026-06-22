@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "agkft1Ve8jA=",
+  "dgSpecHash": "uIiJrSGse+c=",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Proyecto_Final_Fund_Programacion\\Streaming\\Streaming.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\luism\\Proyecto_Final_Fund_Programacion\\Streaming\\Streaming.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\luism\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.28\\microsoft.netcore.app.ref.8.0.28.nupkg.sha512",
+    "C:\\Users\\luism\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.28\\microsoft.windowsdesktop.app.ref.8.0.28.nupkg.sha512",
+    "C:\\Users\\luism\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.28\\microsoft.aspnetcore.app.ref.8.0.28.nupkg.sha512",
+    "C:\\Users\\luism\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.28\\microsoft.netcore.app.host.win-x64.8.0.28.nupkg.sha512"
+  ],
   "logs": []
 }
