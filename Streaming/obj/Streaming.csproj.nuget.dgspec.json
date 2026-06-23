@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Streaming\\Streaming.csproj": {}
+    "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Proyecto_Final_Fund_Programacion\\Streaming\\Streaming.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Streaming\\Streaming.csproj": {
+    "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Proyecto_Final_Fund_Programacion\\Streaming\\Streaming.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Streaming\\Streaming.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Proyecto_Final_Fund_Programacion\\Streaming\\Streaming.csproj",
         "projectName": "Streaming",
-        "projectPath": "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Streaming\\Streaming.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Proyecto_Final_Fund_Programacion\\Streaming\\Streaming.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Streaming\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\UPN\\CICLO 3\\Fundamentos de Programacion\\Proyecto_Final_Fund_Programacion\\Streaming\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
